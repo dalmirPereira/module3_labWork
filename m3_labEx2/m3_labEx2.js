@@ -87,6 +87,17 @@ let camelCase = function(cssProp) {
 };
 console.log(camelCase('margin-left-test'))
 
+// In this version, I use destructuring to get the first element and spread the others into another array (...rest).
+// Then, I return the first element with its first character in lowercase and concatenate the other elements, 
+// each with its first character in uppercase.
+let camelCase5 = function(cssProp) {
+    let [first, ...rest] = cssProp.split("-");
+    return first.charAt(0).toLowerCase().concat(first.slice(1)) + 
+        rest.map(str => str.charAt(0).toUpperCase().concat(str.slice(1)))
+        .join("");
+};
+console.log(camelCase5('margin-left-test'))
+
 //b and c) Function camleCase(cssProp) with loops
 // for loop (without conditional)
 // In this function, I also created an array with all the elements separated by a dash (-).
@@ -416,13 +427,22 @@ console.log(sumSalaries(salaries));
 // I used Object.values to create an array of the salaries
 // and used sort() to sort the salaries in descending order.
 // Then I applied [0] to return the first (higher) value as a number.
-function topEarner(salaries) {
+function topSalary(salaries) {
     return Object.values(salaries)
     .sort((a, b) => b - a)
     [0];
 }
-console.log(topEarner(salaries));
+console.log(topSalary(salaries));
 
+// To show the name of the person with the highest salary, 
+// I create an array with elements [name, salary] for each entry of the object.
+// Then, I use reduce to find and keep the highest salary, and finally, I return the name (at index 0).
+function topEarner(salaries) {
+    return Object.entries(salaries)
+    .reduce((top, current) => current[1] > top[1] ? current : top)
+    [0];
+}
+console.log(topEarner(salaries));
 
 
 //-----------------------------------------------------------------

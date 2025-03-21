@@ -151,19 +151,18 @@ let debounceFunc2 = debounce2(func2, 2000);
 function debounce3(func, ms = 1000) {
   let timer;
 
-  return function (msg) {
+  return function (...arg) {
     clearTimeout(timer);
-    timer = setTimeout(() => func(msg), ms);
+    timer = setTimeout(() => func(...arg), ms);
   };
 }
 
-let printMe = (msg) => console.log(msg);
-let debounceFunc3 = debounce3(printMe, 3000);
-let msg = "Debounce3 test.";
+let printMe = (...arg) => console.log(...arg);
+let debounceFunc3 = debounce3(printMe, 5000);
 
-//debounceFunc3(msg);
-//debounceFunc3(msg);
-//debounceFunc3(msg); //It will be the only one to be executed, and it will run after 3 second, as passed to debounce3() as an argument.
+debounceFunc3("test","debounce","with","multiple","parameters");
+debounceFunc3("test","debounce","with","multiple","parameters");
+debounceFunc3("test","debounce","with","multiple","parameters"); //It will be the only one to be executed, and it will run after 3 second, as passed to debounce3() as an argument.
 
 //-----------------------------------------------------------------
 
